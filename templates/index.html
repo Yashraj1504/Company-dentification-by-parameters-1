@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Search Company Details</h1>
+        
+        <form method="POST" class="search-form">
+            <input type="text" name="company_name" placeholder="Enter Company Name" required>
+            <button type="submit">Search</button>
+        </form>
+
+        {% if company_details %}
+        <div class="result">
+            <h2>Company Details</h2>
+            <p><strong>Company Name:</strong> {{ company_details['Company Name'] }}</p>
+            <p><strong>Industry:</strong> {{ company_details['Industry'] }}</p>
+            <p><strong>Headquarters Location:</strong> {{ company_details['Headquarters Location'] }}</p>
+            <p><strong>Founded Year:</strong> {{ company_details['Founded Year'] }}</p>
+            <p><strong>Number of Employees:</strong> {{ company_details['Number of Employees'] }}</p>
+            <p><strong>Website:</strong> <a href="{{ company_details['Website'] }}" target="_blank">{{ company_details['Website'] }}</a></p>
+        </div>
+        {% elif not_found %}
+        <p class="not-found">Company not found. Please check the name and try again.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

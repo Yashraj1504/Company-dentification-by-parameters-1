@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Search</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>Search Company Details</h1>
+
+        <form method="POST" class="search-form">
+            <div class="mb-3">
+                <select name="industry" required class="custom-select form-select">
+                    <option value="" disabled selected>Select Industry</option>
+                    {% for industry in industries %}
+                    <option value="{{ industry }}">{{ industry }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <select name="location" required class="custom-select form-select">
+                    <option value="" disabled selected>Select City</option>
+                    {% for location in locations %}
+                    <option value="{{ location }}">{{ location }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <select name="founded_year" required class="custom-select form-select">
+                    <option value="" disabled selected>Select Founded Year</option>
+                    {% for year in founded_years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        {% if company_details %}
+        <div class="result">
+            <h2>Company Details</h2>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Company Name</th>
+                        <th>Industry</th>
+                        <th>Headquarters Location</th>
+                        <th>Founded Year</th>
+                        <th>Number of Employees</th>
+                        <th>Website</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for company in company_details %}
+                    <tr>
+                        <td>{{ company['Company Name'] }}</td>
+                        <td>{{ company['Industry'] }}</td>
+                        <td>{{ company['Headquarters Location'] }}</td>
+                        <td>{{ company['Founded Year'] }}</td>
+                        <td>{{ company['Number of Employees'] }}</td>
+                        <td><a href="{{ company['Website'] }}" target="_blank">{{ company['Website'] }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% elif not_found %}
+        <p class="not-found">No companies found for the given criteria. Please try again.</p>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
